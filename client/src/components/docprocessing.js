@@ -21,13 +21,14 @@ import {
 //import ReactJson from 'react-json-view'
 import Uploader from './uploader.js'
 import RulesMessages from './rulesMessages.js'
+import RulesTable from './rulesTable.js'
 
 
 class docprocessing extends Component {
 
   constructor(props) {
     super(props);
-    console.log(this.props.location.state);
+    //console.log(this.props.location.state);
     this.state = {
          selectedFile: null,
          loaded: 0,
@@ -52,7 +53,7 @@ class docprocessing extends Component {
     //  this.props.location.state
       //console.log(myval);
 
-      console.log(this.props.location.state);
+      //console.log(this.props.location.state);
       if(typeof this.props.location.state == 'undefined'){
           console.log(false);
          return false
@@ -79,7 +80,7 @@ class docprocessing extends Component {
       selectedFile: event.target.files[0],
       loaded: 0,
     })
-
+    //cp4aservice.AdjustRulesData("sssd");
     this.timer = setTimeout(() =>this.onSubmitHandler(), 300);
 
  }
@@ -93,7 +94,11 @@ class docprocessing extends Component {
           this.timer = setTimeout(() =>this.doCp4aWork(), 3000);
       }else{
           console.log(serviceReturn.rulesMessages);
+          var rtnObject = cp4aservice.AdjustRulesData(serviceReturn.rulesMessages);
+          console.log(rtnObject);
+
           this.setState({
+              datatable : rtnObject,
               rulesM : serviceReturn.rulesMessages,
               DocProcessing : 4
           })
@@ -191,7 +196,12 @@ resetIt = () => {
             {this.state.DocProcessing == 2 && (<div><div><label>Analyser ID</label> : {this.state.anaylserID}</div><div>Processing Document <ProgressBar now={this.state.progressState} label={this.state.progressMessage}/> </div></div>)}
             {this.state.DocProcessing == 4 && (
               <div>
+                <Column>
                 <RulesMessages rulesmessages={this.state.rulesM} />
+                </Column>
+                <Column>
+                <RulesTable headerData={this.state.datatable.headers} rowData={this.state.datatable.rulesObject} />
+                </Column>
                 <Button onClick={this.resetIt}>New Document</Button>
               </div>
             )}
