@@ -20,7 +20,7 @@ const LoginComp: FC = () => {
     try {
       //const response = await fetch(`/api/auth-url/google?${qParams}`);
     //  https://<ums-host>/oidc/endpoint/ums/authorize?response_type=token&client_id=browser&scope=openid&state=none&redirect_uri=http://192.168.99.100:8080https://<ums-host>/oidc/endpoint/ums/authorize?response_type=token&client_id=browser&scope=openid&state=none&redirect_uri=http://192.168.99.100:8080
-      const url = "https://ums-uk.159.122.214.124.nip.io/oidc/endpoint/ums/authorize?response_type=token&client_id=AndyAppClient&scope=openid&state=none&redirect_uri=http://localhost:3000/oauth_callback/"
+      const url = "https://ums-uk.159.122.214.124.nip.io/oidc/endpoint/ums/authorize?response_type=token&client_id=" + process.env.REACT_APP_CLIENT_SECRET + "&scope=openid&state=none&redirect_uri=http://"+ process.env.REACT_APP_REDIRECT_URL + "/oauth_callback/"
       window.location.assign(url);
     } catch (e) {
       console.error(e);
