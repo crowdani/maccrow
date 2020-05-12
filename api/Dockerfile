@@ -12,6 +12,6 @@ COPY ./api /srv/cp4aapi
 
 ENV REACT_APP_BACA_URL=https://backend.159.122.214.124.nip.io/ca/rest/content/v1
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
 
 EXPOSE 9000
