@@ -3,8 +3,8 @@ RUN mkdir -p /srv/cp4aapi
 
 WORKDIR /srv/cp4aapi
 
-COPY package.json
-COPY package-lock.json
+COPY package.json /srv/cp4aapi
+COPY package-lock.json /srv/cp4aapi
 
 RUN npm install
 
